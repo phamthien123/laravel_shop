@@ -31,6 +31,10 @@
             text-align: center;
             padding: 8px;
         }
+
+        .btnAdd {
+            margin-left: 85%;
+        }
     </style>
 </head>
 
@@ -48,13 +52,16 @@
         <div class="container-fluid py-4">
             <h1 style="text-align: center;font-size: 30px;">Table Product</h1>
         </div>
+        <a href="{{url('view_product')}}" class="btn btn-info btnAdd">Add</a>
         <table>
             <tr>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Discount</th>
+                <th>Feature</th>
+                <th>Product_Hot</th>
+                <th>Discount(%)</th>
                 <th>Category_product</th>
                 <th>Image</th>
                 <th></th>
@@ -66,23 +73,26 @@
                 <td>{{$item->description}}</td>
                 <td>{{$item->quantity}}</td>
                 <td>{{$item->price}}</td>
+                <td>{{$item->feature}}</td>
+                <td>{{$item->product_hot}}</td>
                 <td>{{$item->discount_price}}</td>
-                <td>{{$item->category_product}}</td>
+                <td>{{$item->category_name}}</td>
                 <td><img src="/product/{{$item->image}}" alt="product" width="100px"></td>
                 <td>
-                    <a href="{{url('/edit_product',$item->id)}}" class="btn btn-success">Edit</a>
+                    <a href="{{url('/edit_product',$item->pid)}}" class="btn btn-success">Edit</a>
                 </td>
                 <td>
-                    <a onclick="return confirm('Are You Sure To Delete This Category')" href="{{url('/delete_product',$item->id)}}" class="btn btn-primary">Delete</a>
+                    <a onclick="return confirm('Are You Sure To Delete This Category')" href="{{url('/delete_product',$item->pid)}}" class="btn btn-primary">Delete</a>
                 </td>
             </tr>
             @endforeach
         </table>
     </main>
     <!--   Core JS Files   -->
-
     @include('admin.js')
-
+   <div>
+   {!!$product->withQueryString()->links('pagination::bootstrap-5')!!}     
+   </div>
 </body>
 
 </html>

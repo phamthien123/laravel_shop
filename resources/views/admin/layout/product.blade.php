@@ -57,7 +57,7 @@
                 <select id="category" name="category" required="">
                     <option value="">Add Category</option>
                     @foreach($category as $item)
-                    <option value="{{$item->category_name}}">{{$item->category_name}}</option>
+                    <option value="{{$item->id}}">{{$item->category_name}}</option>
                     @endforeach
                 </select>
 
@@ -66,6 +66,18 @@
 
                 <label for="Quantity">Price</label>
                 <input type="text" id="price" name="price" placeholder="Write Price" required="">
+
+                <label for="feature">Feature</label>
+                <select id="feature" name="feature" required="">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+
+                <label for="product_Hot">Product Hot</label>
+                <select id="product_Hot" name="product_Hot" required="">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
 
                 <label for="Quantity">Discount</label>
                 <input type="text" id="discount" name="discount" placeholder="Write Discount" required="">

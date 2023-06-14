@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,6 +13,19 @@ class AdminController extends Controller
     public function adminHome()
     {
         return view('admin.home');
+    }
+
+    public function view_user()
+    {
+        $user = User::all();
+        return view('admin.layout.user', compact('user'));
+    }
+
+    public function delete_user($id)
+    {
+        $product = User::find($id);
+        $product->delete();
+        return redirect()->back()->with('message', 'User Delete Successfully');
     }
 
     public function view_category()
@@ -55,7 +69,9 @@ class AdminController extends Controller
         $product->quantity = $request->quantity;
         $product->price = $request->price;
         $product->discount_price = $request->discount;
-        $product->category_product = $request->category;
+        $product->category_id = $request->category;
+        $product->feature = $request->feature;
+        $product->product_hot = $request->product_Hot;
         $image = $request->image;
         $imageName = time() . '.' . $image->getClientOriginalExtension();
         $request->image->move('product', $imageName);
@@ -66,14 +82,18 @@ class AdminController extends Controller
 
     public function show_product()
     {
-        $product = Product::all();
+        $product = Product::select('products.id AS pid','products.title', 'products.description','products.price',
+        'products.discount_price','products.quantity','products.image','products.feature','products.product_hot','categories.category_name')
+        ->leftJoin('categories','products.category_id','=','categories.id')->orderBy('pid','desc')->paginate(4);
+
         return view('admin.layout.show_product', compact('product'));
     }
 
     public function edit_product($id)
     {
-        $product = Product::find($id);
-        $category = Category::all();
+        $product        = Product::find($id);
+        $category       = Category::all();
+        
         return view('admin.layout.edit_product', compact('product', 'category'));
     }
 
@@ -85,7 +105,9 @@ class AdminController extends Controller
         $product->quantity = $request->quantity;
         $product->price = $request->price;
         $product->discount_price = $request->discount;
-        $product->category_product = $request->category;
+        $product->category_id = $request->category;
+        $product->feature = $request->feature;
+        $product->product_hot = $request->product_Hot;
         $image = $request->image;
         if ($image) {
             $imageName = time() . '.' . $image->getClientOriginalExtension();

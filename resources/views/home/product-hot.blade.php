@@ -3,17 +3,17 @@
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="main_title">
-                    <h2><span>Featured product</span></h2>
+                    <h2><span>Hot product</span></h2>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            @foreach($pro_feature as $feature)
+            @foreach($pro_hot as $hot)
             <div class="col-lg-4 col-md-6">
                 <div class="single-product">
                     <div class="product-img">
-                        <img class="img-fluid w-100" src="{{asset('product/'.$feature->image)}}" alt="" />
+                        <img class="img-fluid w-100" src="{{asset('product/'.$hot->image)}}" alt="" />
                         <div class="p_icon">
                             <a href="#">
                                 <i class="ti-eye"></i>
@@ -39,6 +39,6 @@
             </div>
             @endforeach
         </div>
-        <span style="margin-left:40%"><a href="{{url('/allFeature')}}" class="btn btn-danger">Xem Tất Cả Sản Phẩm</a></span>
+        <span style="margin-left:40%"><a href="{{url('/allHot')}}" class="btn btn-danger">Xem Tất Cả Sản Phẩm</a></span>
     </div>
 </section>

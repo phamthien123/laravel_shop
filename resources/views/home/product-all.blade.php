@@ -1,19 +1,19 @@
-<section class="feature_product_area section_gap_bottom_custom">
+<section class="inspired_product_area section_gap_bottom_custom">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="main_title">
-                    <h2><span>Featured product</span></h2>
+                    <h2><span>All Product</span></h2>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            @foreach($pro_feature as $feature)
-            <div class="col-lg-4 col-md-6">
+            @foreach($productAlls as $productAll)
+            <div class="col-lg-3 col-md-6">
                 <div class="single-product">
                     <div class="product-img">
-                        <img class="img-fluid w-100" src="{{asset('product/'.$feature->image)}}" alt="" />
+                        <img class="img-fluid w-100" src="{{asset('product/'.$productAll->image)}}" alt="" />
                         <div class="p_icon">
                             <a href="#">
                                 <i class="ti-eye"></i>
@@ -27,18 +27,20 @@
                         </div>
                     </div>
                     <div class="product-btm">
-                        <a href="#" class="d-block">
-                            <h4>Latest men’s sneaker</h4>
+                        <a href="{{url('product_detail',$productAll->id)}}" class="d-block">
+                            <h4>{{$productAll->title}}</h4>
                         </a>
                         <div class="mt-3">
-                            <span class="mr-4">$25.00</span>
-                            <del>$35.00</del>
+                            <span class="mr-4">{{number_format($productAll->price)}}VNĐ</span>
+                            <del>{{$productAll->discount_price}}%</del>
                         </div>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
-        <span style="margin-left:40%"><a href="{{url('/allFeature')}}" class="btn btn-danger">Xem Tất Cả Sản Phẩm</a></span>
+        <span>
+            {!!$productAlls->withQueryString()->links('pagination::bootstrap-5')!!}
+        </span>
     </div>
 </section>

@@ -55,9 +55,10 @@
 
                 <label for="Category">Category</label>
                 <select id="category" name="category" required="">
-                    <option value="{{$product->category_product}}" selected="">{{$product->category_product}}</option>
                     @foreach($category as $item)
-                    <option value="{{$item->category_name}}">{{$item->category_name}}</option>
+                    <option {{$product->category_id == $item->id ? 'selected' : ''}} value="{{$item->id}}">
+                        {{$item->category_name}}
+                    </option>
                     @endforeach
                 </select>
 
@@ -66,6 +67,26 @@
 
                 <label for="Quantity">Price</label>
                 <input type="text" id="price" name="price" placeholder="Write Price" required="" value="{{$product->price}}">
+
+                <label for="feature">Feature</label>
+                <select id="feature" name="feature" required="">
+                    <option value="{{$product->id}}">{{$product->feature}}</option>
+                        @if($product->feature == 'No')
+                            <option value="Yes">Yes</option>
+                        @else
+                            <option value="No">No</option>
+                        @endif
+                </select>
+
+                <label for="product_Hot">Product Hot</label>
+                <select id="product_hot" name="product_Hot" required="">
+                    <option value="{{$product->id}}">{{$product->product_hot}}</option>
+                        @if($product->product_hot == 'No')
+                            <option value="Yes">Yes</option>
+                        @else
+                            <option value="No">No</option>
+                        @endif
+                </select>
 
                 <label for="Quantity">Discount</label>
                 <input type="text" id="discount" name="discount" placeholder="Write Discount" required="" value="{{$product->discount_price}}">

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-@include('home.head')
+    @include('home.head')
 </head>
 
 <body>
@@ -15,21 +15,21 @@
     <!--================End Home Banner Area =================-->
 
     <!--================ Feature Product Area =================-->
-    @include('home.product-feature')
+    @include('home.product-all')
     <!--================ End Feature Product Area =================-->
-
-    <!--================ Offer Area =================-->
-    @include('home.area')
-    <!--================ End Offer Area =================-->
 
     <!--================ New Product Area =================-->
     @include('home.product-new')
     <!--================ End New Product Area =================-->
 
     <!--================ Inspired Product Area =================-->
-    @include('home.product-area')
+    @include('home.product-hot')
     <!--================ End Inspired Product Area =================-->
-   
+
+    <!--================ Inspired Product Area =================-->
+    @include('home.product-feature')
+    <!--================ End Inspired Product Area =================-->
+
     <!--================ Start Blog Area =================-->
     @include('home.blog')
     <!--================ End Blog Area =================-->
