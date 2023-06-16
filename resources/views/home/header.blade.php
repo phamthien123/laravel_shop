@@ -51,7 +51,7 @@
                                             <a class="nav-link" href="checkout.html">Product Checkout</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="cart.html">Shopping Cart</a>
+                                            <a class="nav-link" href="{{url('showCart')}}">Shopping Cart</a>
                                         </li>
                                     </ul>
                                 </li>

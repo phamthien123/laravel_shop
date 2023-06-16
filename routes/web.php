@@ -21,10 +21,17 @@ Route::post('/update/{id}', [AdminController::class, 'update']);
 Route::get('/delete_product/{id}', [AdminController::class, 'delete_product']);
 
 //Home:Chưa Login
-Route::get('/', [ProductController::class, 'homeProduct']);
+Route::get('/', [HomeController::class, 'redirect']);
+Route::get('/index', [ProductController::class, 'homeProduct']);
 Route::get('/allFeature', [ProductController::class, 'allFeature']);
 Route::get('/allHot', [ProductController::class, 'allHot']);
 Route::get('/product_detail/{id}', [ProductController::class, 'product_detail']);
+Route::post('/add_cart/{id}', [ProductController::class, 'add_cart']);
+Route::get('/showCart', [ProductController::class, 'showCart']);
+Route::get('/remove_cart/{id}', [ProductController::class, 'remove_cart']);
+Route::get('/checkout', [ProductController::class, 'checkout']);
+Route::get('/stripe/{Total}', [ProductController::class,'stripe']);
+Route::post('stripe/{Total}',[ProductController::class,'stripePost'])->name('stripe.post');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,8 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Home:Khi Login
-Route::get('/redirect', [HomeController::class, 'redirect']);
+
 
 
 require __DIR__ . '/auth.php';

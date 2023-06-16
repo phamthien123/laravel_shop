@@ -15,15 +15,11 @@
                     <div class="product-img">
                         <img class="img-fluid w-100" src="{{asset('product/'.$productAll->image)}}" alt="" />
                         <div class="p_icon">
-                            <a href="#">
-                                <i class="ti-eye"></i>
-                            </a>
-                            <a href="#">
-                                <i class="ti-heart"></i>
-                            </a>
-                            <a href="#">
-                                <i class="ti-shopping-cart"></i>
-                            </a>
+                            <form action="{{url('add_cart',$productAll->id)}}" method="post">
+                                @csrf
+                                <input type="number" name="quantity" value="1" min="1" >
+                               <input type="submit" value="Add To Cart">
+                            </form>
                         </div>
                     </div>
                     <div class="product-btm">
