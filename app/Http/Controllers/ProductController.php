@@ -115,8 +115,9 @@ class ProductController extends Controller
             $order->Product_id = $value->Product_id;
             $order->quantity = $value->quantity;
 
-            $order->payment_status = null;
-            $order->delivery_status = 'Processing Cash';
+            $order->payment_status = 'Cash To Delivery';
+            $order->delivery_status = 'Processing';
+            $order->received_status = '';
 
             $order->save();
 
@@ -133,7 +134,7 @@ class ProductController extends Controller
         return view('home.stripe', compact('Total'));
     }
 
-    public function stripePost(Request $request,$Total)
+    public function stripePost(Request $request, $Total)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -162,8 +163,9 @@ class ProductController extends Controller
             $order->Product_id = $value->Product_id;
             $order->quantity = $value->quantity;
 
-            $order->payment_status = 'Processing Payment';
-            $order->delivery_status = null;
+            $order->payment_status = 'Payment';
+            $order->delivery_status = 'Processing';
+            $order->received_status = '';
 
             $order->save();
 
@@ -175,5 +177,17 @@ class ProductController extends Controller
         Session::flash('success', 'Payment successful!');
 
         return back();
+    }
+
+    public function orderCart()
+    {
+        if (Auth::id()) {
+            $id = Auth::user()->id;
+            $order = Order::where('user_id', '=', $id)->OrderBy('id', 'desc')->get();
+
+            return view('home.orderCart', compact('order'));
+        } else {
+            return redirect('login');
+        }
     }
 }

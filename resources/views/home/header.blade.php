@@ -42,7 +42,7 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="category.html">Shop Category</a>
+                                            <a class="nav-link" href="{{url('orderCart')}}">Order</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="single-product.html">Product Details</a>

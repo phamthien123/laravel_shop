@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('User_id')->nullable();
             $table->string('payment_status')->nullable();
             $table->string('delivery_status')->nullable();
+            $table->string('received_status')->nullable();
 
             $table->timestamps();
         });

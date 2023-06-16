@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -82,9 +83,19 @@ class AdminController extends Controller
 
     public function show_product()
     {
-        $product = Product::select('products.id AS pid','products.title', 'products.description','products.price',
-        'products.discount_price','products.quantity','products.image','products.feature','products.product_hot','categories.category_name')
-        ->leftJoin('categories','products.category_id','=','categories.id')->orderBy('pid','desc')->paginate(4);
+        $product = Product::select(
+            'products.id AS pid',
+            'products.title',
+            'products.description',
+            'products.price',
+            'products.discount_price',
+            'products.quantity',
+            'products.image',
+            'products.feature',
+            'products.product_hot',
+            'categories.category_name'
+        )
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->orderBy('pid', 'desc')->paginate(4);
 
         return view('admin.layout.show_product', compact('product'));
     }
@@ -93,7 +104,7 @@ class AdminController extends Controller
     {
         $product        = Product::find($id);
         $category       = Category::all();
-        
+
         return view('admin.layout.edit_product', compact('product', 'category'));
     }
 
@@ -123,5 +134,28 @@ class AdminController extends Controller
         $product = Product::find($id);
         $product->delete();
         return redirect()->back()->with('message', 'Category Delete Successfully');
+    }
+
+    public function show_order()
+    {
+        $order = Order::paginate(5);
+        return view('admin.layout.order', compact('order'));
+    }
+
+    public function delivery($id)
+    {
+        $order = Order::find($id);
+        $order->delivery_status = "Delivery";
+        $order->save();
+        return redirect()->back();
+    }
+
+    public function received($id)
+    {
+        $order = Order::find($id);
+        $order->received_status = "Received";
+        $order->delivery_status = "Received";
+        $order->save();
+        return redirect()->back();
     }
 }
