@@ -42,6 +42,7 @@
                                 <th scope="col">Price</th>
                                 <th></th>
                                 <th scope="col">Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,18 +59,27 @@
                                     {{number_format($item->price)}} VNĐ
                                 </td>
                                 <td></td>
-                                @if($item->received_status == 'Processing')
+                                @if($item->delivery_status == 'Processing')
                                 <td>
-                                    <h5>{{$item->received_status}}</h5>
+                                    <h5>{{$item->delivery_status}}</h5>
                                 </td>
-                                @elseif($item->received_status == 'Delivery')
+                                @elseif($item->delivery_status == 'Delivery')
                                 <td>
-                                    <h5>{{$item->received_status}}</h5>
+                                    <h5>{{$item->delivery_status}}</h5>
+                                </td>
+                                @elseif($item->delivery_status == 'Your Cancel The Order')
+                                <td>
+                                    <h5>{{$item->delivery_status}}</h5>
                                 </td>
                                 @else
                                 <td>
-                                    <h5>{{$item->received_status}}</h5>
+                                    <h5>{{$item->delivery_status}}</h5>
                                 </td>
+                                @endif
+                                @if($item->delivery_status == 'Delivery' || $item->delivery_status == 'Received' ||  $item->delivery_status == 'Your Cancel The Order' )
+                                <td><a href="#" class="btn btn-danger" style="pointer-events: none; color: #ccc;">Cancel Order</a> </td>
+                                @else
+                                <td><a onclick="return confirm('Are You Sure Cancel')" href="{{url('cancel',$item->id)}}" class="btn btn-danger">Cancel Order</a> </td>
                                 @endif
                             </tr>
                             <?php $Total = $Total + $item->price ?>
@@ -80,6 +90,7 @@
                                 <td>
                                     <h5>{{number_format($Total)}} VNĐ</h5>
                                 </td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>

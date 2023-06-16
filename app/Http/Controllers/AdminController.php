@@ -138,7 +138,7 @@ class AdminController extends Controller
 
     public function show_order()
     {
-        $order = Order::paginate(5);
+        $order = Order::OrderBy('id','desc')->paginate(5);
         return view('admin.layout.order', compact('order'));
     }
 
@@ -157,5 +157,11 @@ class AdminController extends Controller
         $order->delivery_status = "Received";
         $order->save();
         return redirect()->back();
+    }
+
+    public function searchOrder(Request $request)  {
+        $searchOrder = $request->searchOrder;
+        $order = Order::where('name','LIKE',"%$searchOrder%")->get();
+        return view('admin.layout.order', compact('order'));
     }
 }

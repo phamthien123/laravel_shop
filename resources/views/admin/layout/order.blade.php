@@ -44,6 +44,11 @@
         <!-- Navbar -->
         @include('admin.navbar')
         <!-- End Navbar -->
+        <form action="{{url('searchOrder')}}" style="margin-left: 60px" method="get" id="formSearch">
+            @csrf
+            <input type="text" name="searchOrder" id="search_order" placeholder="Search Order" value="{{request()->input('searchOrder')}}">
+        </form>
+        <button id="clickElement" class="btn btn-danger">Search</button>
         @if(session()->has('message'))
         <div class="alert alert-success" id="textAlert">
             {{session()->get('message')}}
@@ -80,6 +85,10 @@
 
                 @if($item->delivery_status == 'Processing')
                 <td><a onclick="return confirm('Are You Sure To This Order')" href="{{url('delivery',$item->id)}}" class="btn btn-info">Processing</a></td>
+                @elseif($item->delivery_status == 'Your Cancel The Order')
+                <td>
+                    <p class="text-danger">Order Cancel</p>
+                </td>
                 @else
                 <td>
                     <p class="text-info">Delivery</p>
@@ -89,11 +98,11 @@
                 <td><a onclick="return confirm('Are You Sure To This Received')" href="{{url('received',$item->id)}}" class="btn btn-success">Received</a></td>
                 @elseif($item->delivery_status == 'Received')
                 @else
-                <td><a  href="#" class="btn btn-success" style=" pointer-events: none; color: #ccc;">Received</a></td>
+                <td><a href="#" class="btn btn-success" style=" pointer-events: none; color: #ccc;">Received</a></td>
                 @endif
                 @if($item->received_status == 'Received')
                 <td>
-                    <p class="text-danger">Item received</p>
+                    <p class="text-success">Item received</p>
                 </td>
                 @endif
             </tr>
@@ -101,10 +110,27 @@
         </table>
     </main>
     <!--   Core JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function() {
+            $("#clickElement").click(function() {
+                let search = document.getElementById("search_order").value;
+                if (search != "") {
+                    $('#clickElement').unbind('click.mynamespace');
+                    $("#formSearch").submit();
+                } else {
+                    $('#clickElement').off('click.mynamespace');
+                }
+
+            });
+        });
+    </script>
+
+
     @include('admin.js')
-    <div>
-        {!!$order->withQueryString()->links('pagination::bootstrap-5')!!}
-    </div>
+    <!-- <div>
+
+    </div> -->
 </body>
 
 </html>

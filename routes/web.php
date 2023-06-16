@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -19,9 +20,14 @@ Route::get('/show_product', [AdminController::class, 'show_product']);
 Route::get('/edit_product/{id}', [AdminController::class, 'edit_product']);
 Route::post('/update/{id}', [AdminController::class, 'update']);
 Route::get('/delete_product/{id}', [AdminController::class, 'delete_product']);
+
+//CartAdmin
 Route::get('/show_order', [AdminController::class, 'show_order']);
 Route::get('delivery/{id}',[AdminController::class,'delivery']);
 Route::get('received/{id}',[AdminController::class,'received']);
+
+//Search
+Route::get('searchOrder',[AdminController::class,'searchOrder']);
 
 
 //Home
@@ -30,13 +36,17 @@ Route::get('/index', [ProductController::class, 'homeProduct']);
 Route::get('/allFeature', [ProductController::class, 'allFeature']);
 Route::get('/allHot', [ProductController::class, 'allHot']);
 Route::get('/product_detail/{id}', [ProductController::class, 'product_detail']);
-Route::post('/add_cart/{id}', [ProductController::class, 'add_cart']);
-Route::get('/showCart', [ProductController::class, 'showCart']);
-Route::get('/remove_cart/{id}', [ProductController::class, 'remove_cart']);
-Route::get('/checkout', [ProductController::class, 'checkout']);
-Route::get('/orderCart', [ProductController::class, 'orderCart']);
-Route::get('/stripe/{Total}', [ProductController::class,'stripe']);
-Route::post('stripe/{Total}',[ProductController::class,'stripePost'])->name('stripe.post');
+
+//CartUser
+Route::post('/add_cart/{id}', [CartController::class, 'add_cart']);
+Route::get('/showCart', [CartController::class, 'showCart']);
+Route::get('/remove_cart/{id}', [CartController::class, 'remove_cart']);
+Route::get('/checkout', [CartController::class, 'checkout']);
+Route::get('/orderCart', [CartController::class, 'orderCart']);
+Route::get('/stripe/{Total}', [CartController::class,'stripe']);
+Route::post('stripe/{Total}',[CartController::class,'stripePost'])->name('stripe.post');
+Route::get('cancel/{id}',[CartController::class,'cancel']);
+
 
 
 Route::get('/dashboard', function () {
