@@ -28,7 +28,7 @@ Route::get('received/{id}',[AdminController::class,'received']);
 
 //Search
 Route::get('searchOrder',[AdminController::class,'searchOrder']);
-
+Route::get('searchProduct',[AdminController::class,'searchProduct']);
 
 //Home
 Route::get('/', [HomeController::class, 'redirect']);

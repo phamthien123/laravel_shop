@@ -3,35 +3,6 @@
 
 <head>
     @include('admin.head')
-    <style>
-        .form-inline {
-            margin-left: 30%;
-        }
-
-        .add {
-            width: 50%;
-            color: #000;
-        }
-
-        .button {
-            margin-top: 10px;
-            background-color: green !important;
-        }
-
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 90%;
-            margin: auto;
-        }
-
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: center;
-            padding: 8px;
-        }
-    </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">

@@ -138,7 +138,7 @@ class AdminController extends Controller
 
     public function show_order()
     {
-        $order = Order::OrderBy('id','desc')->paginate(5);
+        $order = Order::OrderBy('id', 'desc')->paginate(5);
         return view('admin.layout.order', compact('order'));
     }
 
@@ -159,9 +159,33 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function searchOrder(Request $request)  {
+    public function searchOrder(Request $request)
+    {
         $searchOrder = $request->searchOrder;
-        $order = Order::where('name','LIKE',"%$searchOrder%")->get();
+
+        $order = Order::where('name', 'LIKE', "%$searchOrder%")->get();
+
         return view('admin.layout.order', compact('order'));
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $searchProduct = $request->searchProduct;
+
+        $product = Product::select(
+            'products.id AS pid',
+            'products.title',
+            'products.description',
+            'products.price',
+            'products.discount_price',
+            'products.quantity',
+            'products.image',
+            'products.feature',
+            'products.product_hot',
+            'categories.category_name'
+        )
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->where('title', 'LIKE', "%$searchProduct%")->get();
+            
+        return view('admin.layout.show_product', compact('product'));
     }
 }

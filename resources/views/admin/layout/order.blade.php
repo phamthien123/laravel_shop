@@ -3,39 +3,7 @@
 
 <head>
     @include('admin.head')
-    <style>
-        .form-inline {
-            margin-left: 30%;
-        }
 
-        .add {
-            width: 50%;
-            color: #000;
-        }
-
-        .button {
-            margin-top: 10px;
-            background-color: green !important;
-        }
-
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 90%;
-            margin: auto;
-        }
-
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: center;
-            padding: 8px;
-        }
-
-        .btnAdd {
-            margin-left: 85%;
-        }
-    </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -44,11 +12,17 @@
         <!-- Navbar -->
         @include('admin.navbar')
         <!-- End Navbar -->
-        <form action="{{url('searchOrder')}}" style="margin-left: 60px" method="get" id="formSearch">
-            @csrf
-            <input type="text" name="searchOrder" id="search_order" placeholder="Search Order" value="{{request()->input('searchOrder')}}">
-        </form>
-        <button id="clickElement" class="btn btn-danger">Search</button>
+        <div class="wrap">
+            <div class="search">
+                <form action="{{url('searchOrder')}}" method="get" id="formSearch">
+                    @csrf
+                    <input type="text" name="searchOrder" id="search_order" placeholder="Search Order" value="{{request()->input('searchOrder')}}">
+                </form>
+                <button id="clickElement" class="btn btn-info">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
         @if(session()->has('message'))
         <div class="alert alert-success" id="textAlert">
             {{session()->get('message')}}
@@ -71,7 +45,7 @@
                 <th>Status</th>
                 <th>Received</th>
             </tr>
-            @foreach($order as $item)
+            @forElse($order as $item)
             <tr>
                 <td>{{$item->name}}</td>
                 <td>{{$item->email}}</td>
@@ -106,7 +80,10 @@
                 </td>
                 @endif
             </tr>
-            @endforeach
+            @empty
+
+            <h3 style="text-align: center;" class="text-danger">Not Item Found</h3>
+            @endforElse
         </table>
     </main>
     <!--   Core JS Files   -->
@@ -121,7 +98,15 @@
                 } else {
                     $('#clickElement').off('click.mynamespace');
                 }
+            });
 
+            $('#search_order').keypress(function(e) {
+                let search = document.getElementById("search_order").value;
+                console.log(search);
+                if (e.which == 13 && search == "") { //Enter key pressed
+                    $('#clickElement').off('click.mynamespace');
+                    return false;
+                }
             });
         });
     </script>

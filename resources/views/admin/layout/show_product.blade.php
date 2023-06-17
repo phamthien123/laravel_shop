@@ -3,39 +3,6 @@
 
 <head>
     @include('admin.head')
-    <style>
-        .form-inline {
-            margin-left: 30%;
-        }
-
-        .add {
-            width: 50%;
-            color: #000;
-        }
-
-        .button {
-            margin-top: 10px;
-            background-color: green !important;
-        }
-
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 90%;
-            margin: auto;
-        }
-
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: center;
-            padding: 8px;
-        }
-
-        .btnAdd {
-            margin-left: 85%;
-        }
-    </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -44,6 +11,17 @@
         <!-- Navbar -->
         @include('admin.navbar')
         <!-- End Navbar -->
+        <div class="wrap">
+            <div class="search">
+                <form action="{{url('searchProduct')}}" method="get" id="formSearch">
+                    @csrf
+                    <input type="text" name="searchProduct" id="search_product" placeholder="Search Product" value="{{request()->input('searchProduct')}}">
+                </form>
+                <button id="clickElement" class="btn btn-info">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
         @if(session()->has('message'))
         <div class="alert alert-success" id="textAlert">
             {{session()->get('message')}}
@@ -67,7 +45,7 @@
                 <th></th>
                 <th></th>
             </tr>
-            @foreach($product as $item)
+            @forElse($product as $item)
             <tr>
                 <td>{{$item->title}}</td>
                 <td>{{$item->description}}</td>
@@ -85,14 +63,38 @@
                     <a onclick="return confirm('Are You Sure To Delete This Category')" href="{{url('/delete_product',$item->pid)}}" class="btn btn-primary">Delete</a>
                 </td>
             </tr>
-            @endforeach
+            
+            @empty
+            <h3 style="text-align: center;" class="text-danger">Not Item Found</h3>
+
+            @endforElse
         </table>
     </main>
     <!--   Core JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function() {
+            $("#clickElement").click(function() {
+                let search = document.getElementById("search_product").value;
+                if (search != "") {
+                    $('#clickElement').unbind('click.mynamespace');
+                    $("#formSearch").submit();
+                } else {
+                    $('#clickElement').off('click.mynamespace');
+                }
+            });
+
+            $('#search_product').keypress(function(e) {
+                let search = document.getElementById("search_product").value;
+                console.log(search);
+                if (e.which == 13 && search == "") { //Enter key pressed
+                    $('#clickElement').off('click.mynamespace');
+                    return false;
+                }
+            });
+        });
+    </script>
     @include('admin.js')
-   <div>
-   {!!$product->withQueryString()->links('pagination::bootstrap-5')!!}     
-   </div>
 </body>
 
 </html>
