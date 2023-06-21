@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="main_title">
-                    <h2><span>All Product</span></h2>
+                    <h2><span>Sale Product</span></h2>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                             <h4>{{$productAll->title}}</h4>
                         </a>
                         <div class="mt-3">
-                            <span class="mr-4">{{number_format($productAll->price)}}VNĐ</span>
+                            <span class="mr-4">{{number_format((int) $productAll->price * (100 - (int) $productAll->discount_price)/100)}} VNĐ</span>
                             <del>{{$productAll->discount_price}}%</del>
                         </div>
                     </div>

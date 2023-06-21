@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
@@ -179,7 +180,61 @@ class AdminController extends Controller
             'categories.category_name'
         )
             ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->where('title', 'LIKE', "%$searchProduct%")->paginate(3);
-            
+
         return view('admin.layout.show_product', compact('product'));
+    }
+
+    public function show_blog()
+    {
+        $blog = Blog::orderBy('id','desc')->get();
+        return view('admin.layout.blog',compact('blog'));
+    }
+
+    public function add_blog_exist()
+    {
+        return view('admin.layout.addBlog');
+    }
+
+    public function add_blog(Request $request)
+    {
+        $blog  = new Blog();
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->link = $request->link;
+        $image = $request->image;
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $request->image->move('blog', $imageName);
+        $blog->image = $imageName;
+        $blog->save();
+        return redirect()->back()->with('message', 'Add Blog Successfully');
+    }
+
+    public function edit_blog($id)
+    {
+        $blog        = Blog::find($id);
+        return view('admin.layout.edit_blog',compact('blog'));
+    }
+
+    public function update_blog($id, Request $request)
+    {
+        $blog = Blog::find($id);
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->link = $request->link;
+        $image = $request->image;
+        if ($image) {
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $request->image->move('blog', $imageName);
+            $blog->image = $imageName;
+        }
+        $blog->save();
+        return redirect()->back()->with('message', 'Blog Update Successfully');
+    }
+
+    public function delete_blog($id)
+    {
+        $blog = Blog::find($id);
+        $blog->delete();
+        return redirect()->back()->with('message', 'Blog Delete Successfully');
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
-use RealRashid\SweetAlert\Facades\Alert; 
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 
@@ -28,11 +28,11 @@ class CartController extends Controller
                 $quantity = $cart->quantity;
                 $cart->quantity = $quantity + $request->quantity;
                 if ($product->discount_price != null) {
-                    $cart->price = $product->discount_price *$cart->quantity;
+                    $cart->price =  $cart->price *  $cart->quantity;
                 } else {
                     $cart->price = $product->price * $cart->quantity;
                 }
-                Alert::success('Product Added Successfully','We have add Product to the Cart');
+                Alert::success('Product Added Successfully', 'We have add Product to the Cart');
                 $cart->Save();
                 return redirect()->back();
             } else {
@@ -45,7 +45,7 @@ class CartController extends Controller
                 $cart->user_id = $user->id;
                 $cart->Product_title = $product->title;
                 if ($product->discount_price != null) {
-                    $cart->price = $product->discount_price * $request->quantity;
+                    $cart->price = (int) $product->price * (100 - (int) $product->discount_price * $request->quantity) / 100;
                 } else {
                     $cart->price = $product->price * $request->quantity;
                 }

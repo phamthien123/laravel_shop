@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
@@ -15,11 +16,12 @@ class ProductController extends Controller
 {
     public function homeProduct(Request $request)
     {
-        $productsNews   = Product::orderBy('id', 'desc')->limit(4)->get();
+        $productsNews   = Product::orderBy('id', 'desc')->limit(6)->get();
         $pro_feature    = Product::where('feature', 'Yes')->orderBy('id', 'desc')->limit(3)->get();
         $pro_hot        = Product::where('product_hot', 'Yes')->orderBy('id', 'desc')->limit(3)->get();
-        $all_products    = Product::paginate(8);
-        return view('home.index', compact('productsNews', 'pro_feature', 'pro_hot','all_products'));
+        $all_products   = Product::paginate(8);
+        $blog = Blog::orderBy('id','desc')->limit(3)->get();
+        return view('home.index', compact('productsNews', 'pro_feature', 'pro_hot','all_products','blog'));
     }
 
     public function all_Product()
@@ -43,13 +45,16 @@ class ProductController extends Controller
 
     public function product_detail($id)
     {
-        $product_details = Product::select('products.id AS pid', 'products.title', 'products.price', 'products.image', 'products.discount_price', 'products.quantity', 'products.description', 'categories.id')
+        $product_details = Product::select('products.id AS pid', 'products.title', 'products.price', 'products.image', 
+        'products.discount_price', 'products.quantity', 'products.description', 'categories.id','categories.category_name','products.category_id')
             ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->where('products.id', $id)->get();
+
         foreach ($product_details as $value => $item) {
             $cate_id = $item->category_id;
         }
 
-        $product_related = Product::select('products.id AS pid', 'products.title', 'products.price', 'products.image')
+        $product_related = Product::select('products.id AS pid', 'products.title', 'products.price', 'products.image', 
+        'products.discount_price', 'products.quantity', 'products.description', 'categories.id','categories.category_name')
             ->leftJoin('categories', 'categories.id', '=', 'products.category_id')->where('categories.id', $cate_id)
             ->WhereNotIn('products.id', [$id])->orderBy('pid', 'desc')->limit(4)->get();
 

@@ -73,7 +73,7 @@
                                     <p>{{$item->quantity}}</p>
                                 </td>
                                 <td>
-                                    <h5>{{number_format($item->price)}} VNĐ</h5>
+                                    <h5>{{number_format((int) $item->price * (100 - (int) $item->discount_price)/100)}} VNĐ</h5>
                                 </td>
                                 <td>
                                     <h5><a onclick="return confirmation(event)" href="{{url('remove_cart',$item->id)}}" class="btn btn-danger">X</a></h5>

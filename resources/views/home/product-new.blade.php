@@ -9,53 +9,37 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
-                <div class="new_product">
-                    <h5 class="text-uppercase">collection of 2019</h5>
-                    <h3 class="text-uppercase">Men’s summer t-shirt</h3>
+            @foreach($productsNews as $product)
+            <div class="col-lg-4 col-md-6">
+                <div class="single-product">
                     <div class="product-img">
-                        <img class="img-fluid" src="{{asset('home/img/product/new-product/new-product1.png')}}" alt="" />
-                    </div>
-                    <h4>$120.70</h4>
-                    <a href="#" class="main_btn">Add to cart</a>
-                </div>
-            </div>
-
-            <div class="col-lg-6 mt-5 mt-lg-0">
-                <div class="row">
-                    @foreach($productsNews as $product)
-                    <div class="col-lg-6 col-md-6">
-                        <div class="single-product">
-                            <div class="product-img">
-                                <img class="img-fluid w-100" src="{{asset('product/'.$product->image)}}" alt="" />
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="ti-eye"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-btm">
-                                <a href="#" class="d-block">
-                                    <h4>{{$product->title}}</h4>
-                                </a>
-                                <div class="mt-3">
-                                    <span class="mr-4">{{number_format($product->price)}} VNĐ</span>
-                                    @if($product->discount_price != null)
-                                    <del>{{$product->discount_price}}%</del>
-                                    @endif
-                                </div>
-                            </div>
+                        <img class="img-fluid w-100" src="{{asset('product/'.$product->image)}}" alt="" />
+                        <div class="p_icon">
+                            <a href="#">
+                                <i class="ti-eye"></i>
+                            </a>
+                            <a href="#">
+                                <i class="ti-heart"></i>
+                            </a>
+                            <a href="#">
+                                <i class="ti-shopping-cart"></i>
+                            </a>
                         </div>
                     </div>
-                    @endforeach
+                    <div class="product-btm">
+                        <a href="#" class="d-block">
+                            <h4>{{$product->title}}</h4>
+                        </a>
+                        <div class="mt-3">
+                            <span class="mr-4">{{number_format($product->price)}} VNĐ</span>
+                            @if($product->discount_price != null)
+                            <del>{{$product->discount_price}}%</del>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </section>

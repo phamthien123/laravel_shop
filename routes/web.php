@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -11,9 +12,13 @@ use App\Http\Controllers\ProductController;
 Route::get('/adminHome', [AdminController::class, 'adminHome']);
 Route::get('/view_user', [AdminController::class, 'view_user']);
 Route::get('/delete_user/{id}', [AdminController::class, 'delete_user']);
+
+//Category
 Route::get('/view_category', [AdminController::class, 'view_category']);
 Route::post('/add_category', [AdminController::class, 'add_category']);
 Route::get('/delete_category/{id}', [AdminController::class, 'delete_category']);
+
+//Product
 Route::get('/view_product', [AdminController::class, 'view_product']);
 Route::post('/add_product', [AdminController::class, 'add_product']);
 Route::get('/show_product', [AdminController::class, 'show_product']);
@@ -21,12 +26,20 @@ Route::get('/edit_product/{id}', [AdminController::class, 'edit_product']);
 Route::post('/update/{id}', [AdminController::class, 'update']);
 Route::get('/delete_product/{id}', [AdminController::class, 'delete_product']);
 
+//Blog
+Route::get('/show_blog', [AdminController::class, 'show_blog']);
+Route::post('/add_blog', [AdminController::class, 'add_blog']);
+Route::get('/add_blog_exist', [AdminController::class, 'add_blog_exist']);
+Route::get('/edit_blog/{id}', [AdminController::class, 'edit_blog']);
+Route::post('/update_blog/{id}', [AdminController::class, 'update_blog']);
+Route::get('/delete_blog/{id}', [AdminController::class, 'delete_blog']);
+
 //CartAdmin
 Route::get('/show_order', [AdminController::class, 'show_order']);
 Route::get('delivery/{id}',[AdminController::class,'delivery']);
 Route::get('received/{id}',[AdminController::class,'received']);
 
-//Search
+//SearchAdmin
 Route::get('searchOrder',[AdminController::class,'searchOrder']);
 Route::get('searchProduct',[AdminController::class,'searchProduct']);
 
@@ -49,6 +62,9 @@ Route::get('/orderCart', [CartController::class, 'orderCart']);
 Route::get('/stripe/{Total}', [CartController::class,'stripe']);
 Route::post('stripe/{Total}',[CartController::class,'stripePost'])->name('stripe.post');
 Route::get('cancel/{id}',[CartController::class,'cancel']);
+
+//BlogHome
+Route::get('/showBlog', [BlogController::class, 'showBlog']);
 
 
 

@@ -3,87 +3,31 @@
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="main_title">
-                    <h2><span>latest blog</span></h2>
-                    <p>Bring called seed first of third give itself now ment</p>
+                    <h2><span>New Blog</span></h2>
                 </div>
             </div>
         </div>
 
         <div class="row">
+            @foreach($blog as $item)
             <div class="col-lg-4 col-md-6">
                 <div class="single-blog">
                     <div class="thumb">
-                        <img class="img-fluid" src="{{asset('home/img/b1.jpg')}}" alt="">
+                        <img class="img-fluid" src="{{asset('blog/'.$item->image)}}" alt="">
                     </div>
                     <div class="short_details">
-                        <div class="meta-top d-flex">
-                            <a href="#">By Admin</a>
-                            <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
-                        </div>
                         <a class="d-block" href="single-blog.html">
-                            <h4>Ford clever bed stops your sleeping
-                                partner hogging the whole</h4>
+                            <h4>{{$item->title}}</h4>
                         </a>
                         <div class="text-wrap">
                             <p>
-                                Let one fifth i bring fly to divided face for bearing the divide unto seed winged divided light
-                                Forth.
+                            {{substr($item->description,0,120)}}
                             </p>
                         </div>
-                        <a href="#" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
+                        <a href="{{$item->link}}" class="blog_btn" target="_blank">Learn More <span class="ml-2 ti-arrow-right"></span></a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="single-blog">
-                    <div class="thumb">
-                        <img class="img-fluid" src="{{asset('home/img/b2.jpg')}}" alt="">
-                    </div>
-                    <div class="short_details">
-                        <div class="meta-top d-flex">
-                            <a href="#">By Admin</a>
-                            <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
-                        </div>
-                        <a class="d-block" href="single-blog.html">
-                            <h4>Ford clever bed stops your sleeping
-                                partner hogging the whole</h4>
-                        </a>
-                        <div class="text-wrap">
-                            <p>
-                                Let one fifth i bring fly to divided face for bearing the divide unto seed winged divided light
-                                Forth.
-                            </p>
-                        </div>
-                        <a href="#" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="single-blog">
-                    <div class="thumb">
-                        <img class="img-fluid" src="{{asset('home/img/b3.jpg')}}" alt="">
-                    </div>
-                    <div class="short_details">
-                        <div class="meta-top d-flex">
-                            <a href="#">By Admin</a>
-                            <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
-                        </div>
-                        <a class="d-block" href="single-blog.html">
-                            <h4>Ford clever bed stops your sleeping
-                                partner hogging the whole</h4>
-                        </a>
-                        <div class="text-wrap">
-                            <p>
-                                Let one fifth i bring fly to divided face for bearing the divide unto seed winged divided light
-                                Forth.
-                            </p>
-                        </div>
-                        <a href="#" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </div>
 </section>

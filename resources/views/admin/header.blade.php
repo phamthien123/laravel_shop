@@ -154,5 +154,21 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-header p-3 pt-2">
+                    <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="material-symbols-outlined opacity-10">rss_feed</i>
+                    </div>
+                    <div class="text-end pt-1">
+                        <p class="text-sm mb-0 text-capitalize"><h1>Total Blog</h1></p>
+                    </div>
+                </div>
+                <hr class="dark horizontal my-0">
+                <div class="card-footer p-3">
+                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder"></span><span class="totalTable">{{$total_blog}} Blog</span></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
@@ -34,6 +35,8 @@ class HomeController extends Controller
                 $order_Received = Order::where('delivery_status', '=', 'Received')->get()->count();
                 $order_Cancel = Order::where('delivery_status', '=', 'Your Cancel The Order')->get()->count();
                 
+                $total_blog = Blog::all()->count();
+                
                 return view('admin.home', compact(
                     'total_Product',
                     'total_Category',
@@ -43,7 +46,8 @@ class HomeController extends Controller
                     'order_Processing',
                     'order_Delivery',
                     'order_Received',
-                    'order_Cancel'
+                    'order_Cancel',
+                    'total_blog',
                 ));
             }
         }
