@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
@@ -8,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
+use RealRashid\SweetAlert\Facades\Alert; 
+
 
 
 class CartController extends Controller
@@ -16,25 +19,42 @@ class CartController extends Controller
     {
         if (Auth::id()) {
             $user = Auth::user();
+            $user_id = $user->id;
             $product = Product::find($id);
-            $cart = new Cart;
+            $product_exist_id = Cart::where('Product_id', '=', $id)->where('User_id', '=', $user_id)->get('id')->first();
 
-            $cart->name = $user->name;
-            $cart->email = $user->email;
-            $cart->phone = $user->phone;
-            $cart->address = $user->address;
-            $cart->user_id = $user->id;
-            $cart->Product_title = $product->title;
-            if ($product->discount_price != null) {
-                $cart->price = $product->discount_price * $request->quantity;
+            if ($product_exist_id != null) {
+                $cart = Cart::find($product_exist_id)->first();
+                $quantity = $cart->quantity;
+                $cart->quantity = $quantity + $request->quantity;
+                if ($product->discount_price != null) {
+                    $cart->price = $product->discount_price *$cart->quantity;
+                } else {
+                    $cart->price = $product->price * $cart->quantity;
+                }
+                Alert::success('Product Added Successfully','We have add Product to the Cart');
+                $cart->Save();
+                return redirect()->back();
             } else {
-                $cart->price = $product->price * $request->quantity;
+                $cart = new Cart;
+
+                $cart->name = $user->name;
+                $cart->email = $user->email;
+                $cart->phone = $user->phone;
+                $cart->address = $user->address;
+                $cart->user_id = $user->id;
+                $cart->Product_title = $product->title;
+                if ($product->discount_price != null) {
+                    $cart->price = $product->discount_price * $request->quantity;
+                } else {
+                    $cart->price = $product->price * $request->quantity;
+                }
+                $cart->image = $product->image;
+                $cart->Product_id = $product->id;
+                $cart->quantity = $request->quantity;
+                $cart->save();
+                return redirect()->back();
             }
-            $cart->image = $product->image;
-            $cart->Product_id = $product->id;
-            $cart->quantity = $request->quantity;
-            $cart->save();
-            return redirect()->back();
         } else {
             return redirect('login');
         }

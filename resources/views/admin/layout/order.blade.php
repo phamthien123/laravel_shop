@@ -85,6 +85,7 @@
             <h3 style="text-align: center;" class="text-danger">Not Item Found</h3>
             @endforElse
         </table>
+        {!!$order->withQueryString()->links('pagination::bootstrap-5')!!}
     </main>
     <!--   Core JS Files   -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

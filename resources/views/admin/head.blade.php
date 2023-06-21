@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="apple-touch-icon" sizes="76x76" href="{{asset('admin/img/apple-icon.png')}}">
-<link rel="icon" type="image/png" href="{{asset('admin/img/favicon.png')}}">
+<link rel="icon" href="{{asset('home/img/dk.jpg')}}" type="image/png" />
 <title>
     Admin DK
 </title>
@@ -17,3 +17,4 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="{{asset('admin/css/material-dashboard.css?v=3.0.0')}}" rel="stylesheet" />
 <link href="{{asset('admin/css/table.css')}}" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />

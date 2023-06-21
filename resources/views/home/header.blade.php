@@ -42,13 +42,10 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
+                                            <a class="nav-link" href="{{url('all_Product')}}">Product All</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" href="{{url('orderCart')}}">Order</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="single-product.html">Product Details</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="checkout.html">Product Checkout</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('showCart')}}">Shopping Cart</a>
@@ -66,19 +63,15 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="tracking.html">Tracking</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="elements.html">Elements</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
+                                <li class="nav-item" style="margin-top: 20px;">
+                                    <form action="{{url('Search_product')}}" method="get" id="formSearch">
+                                        <div class="input-group">
+                                            @csrf
+                                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search" value="{{request()->input('search')}}" id="search_product" />
+                                            <button type="button" class="btn btn-outline-primary" id="clickElement">search</button>
+                                        </div>
+                                    </form>
+
                                 </li>
                             </ul>
                         </div>

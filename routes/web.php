@@ -33,9 +33,12 @@ Route::get('searchProduct',[AdminController::class,'searchProduct']);
 //Home
 Route::get('/', [HomeController::class, 'redirect']);
 Route::get('/index', [ProductController::class, 'homeProduct']);
+Route::get('/all_Product', [ProductController::class, 'all_Product']);
 Route::get('/allFeature', [ProductController::class, 'allFeature']);
 Route::get('/allHot', [ProductController::class, 'allHot']);
 Route::get('/product_detail/{id}', [ProductController::class, 'product_detail']);
+Route::get('Search_product', [ProductController::class, 'Search_product']);
+Route::get('/sort-by',[ProductController::class,'sort_by']);
 
 //CartUser
 Route::post('/add_cart/{id}', [CartController::class, 'add_cart']);

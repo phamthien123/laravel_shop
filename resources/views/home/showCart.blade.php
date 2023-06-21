@@ -2,11 +2,14 @@
 <html lang="en">
 
 <head>
-
+    @include('home.head')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-@include('home.head')
+
+
 
 <body>
+    @include('sweetalert::alert')
     <!--================Header Menu Area =================-->
     @include('home.header')
     <!--================Header Menu Area =================-->
@@ -73,7 +76,7 @@
                                     <h5>{{number_format($item->price)}} VNĐ</h5>
                                 </td>
                                 <td>
-                                    <h5><a onclick="return confirm('Are You Sure To Delete This Cart')" href="{{url('remove_cart',$item->id)}}" class="btn btn-danger">X</a></h5>
+                                    <h5><a onclick="return confirmation(event)" href="{{url('remove_cart',$item->id)}}" class="btn btn-danger">X</a></h5>
                                 </td>
                             </tr>
                             <?php $Total = $Total + $item->price ?>
@@ -91,7 +94,7 @@
                             </tr>
 
                             <tr class="out_button_area">
-                                <td>  <a class="gray_btn" href="{{url('/index')}}">Continue Shopping</a></td>
+                                <td> <a class="gray_btn" href="{{url('/index')}}">Continue Shopping</a></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -116,6 +119,25 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+        function confirmation(ev) {
+            ev.preventDefault();
+            var urlToRedirect = ev.currentTarget.getAttribute('href');
+            swal({
+                    title: "Are you sure to cancel this product",
+                    text: "You will not be able to revert this!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willCancel) => {
+                    if (willCancel) {
+                        window.location.href = urlToRedirect;
+                    }
+
+                });
+        }
+    </script>
     @include('home.js')
 </body>
 

@@ -10,12 +10,6 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-
-    public function adminHome()
-    {
-        return view('admin.home');
-    }
-
     public function view_user()
     {
         $user = User::all();
@@ -95,7 +89,7 @@ class AdminController extends Controller
             'products.product_hot',
             'categories.category_name'
         )
-            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->orderBy('pid', 'desc')->paginate(4);
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->orderBy('pid', 'desc')->paginate(3);
 
         return view('admin.layout.show_product', compact('product'));
     }
@@ -138,7 +132,7 @@ class AdminController extends Controller
 
     public function show_order()
     {
-        $order = Order::OrderBy('id', 'desc')->paginate(5);
+        $order = Order::OrderBy('id', 'desc')->paginate(3);
         return view('admin.layout.order', compact('order'));
     }
 
@@ -163,7 +157,7 @@ class AdminController extends Controller
     {
         $searchOrder = $request->searchOrder;
 
-        $order = Order::where('name', 'LIKE', "%$searchOrder%")->get();
+        $order = Order::where('name', 'LIKE', "%$searchOrder%")->paginate(3);
 
         return view('admin.layout.order', compact('order'));
     }
@@ -184,7 +178,7 @@ class AdminController extends Controller
             'products.product_hot',
             'categories.category_name'
         )
-            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->where('title', 'LIKE', "%$searchProduct%")->get();
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')->where('title', 'LIKE', "%$searchProduct%")->paginate(3);
             
         return view('admin.layout.show_product', compact('product'));
     }

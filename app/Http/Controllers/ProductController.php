@@ -10,17 +10,24 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
 
+
 class ProductController extends Controller
 {
-    public function homeProduct()
+    public function homeProduct(Request $request)
     {
         $productsNews   = Product::orderBy('id', 'desc')->limit(4)->get();
-        $productAlls    = Product::paginate(8);
         $pro_feature    = Product::where('feature', 'Yes')->orderBy('id', 'desc')->limit(3)->get();
         $pro_hot        = Product::where('product_hot', 'Yes')->orderBy('id', 'desc')->limit(3)->get();
-
-        return view('home.index', compact('productsNews', 'productAlls', 'pro_feature', 'pro_hot'));
+        $all_products    = Product::paginate(8);
+        return view('home.index', compact('productsNews', 'pro_feature', 'pro_hot','all_products'));
     }
+
+    public function all_Product()
+    {
+        $all_products    = Product::paginate(9);
+        return view('home.all_Product', compact('all_products'));
+    }
+
 
     public function allFeature()
     {
@@ -47,5 +54,24 @@ class ProductController extends Controller
             ->WhereNotIn('products.id', [$id])->orderBy('pid', 'desc')->limit(4)->get();
 
         return view('home.product_details', compact('product_details', 'product_related'));
+    }
+
+    public function Search_product(Request $request)
+    {
+        $search = $request->search;
+        $productSearch = Product::where('title', 'LIKE', "%$search%")->paginate(8);
+        return view('home.Search_product', compact('productSearch'));
+    }
+
+    public function sort_by(Request $request)
+    {
+        if($request->sort_by == 'lowest_price'){
+            $all_products = Product::orderBy('price','asc')->paginate(9);
+        }
+        if($request->sort_by == 'highest_price'){
+            $all_products = Product::orderBy('price','desc')->paginate(9);
+        }
+        return view('home.search_result',compact('all_products'))->render();
+
     }
 }

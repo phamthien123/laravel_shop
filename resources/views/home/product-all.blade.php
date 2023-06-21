@@ -9,7 +9,7 @@
         </div>
 
         <div class="row">
-            @foreach($productAlls as $productAll)
+            @foreach($all_products as $productAll)
             <div class="col-lg-3 col-md-6">
                 <div class="single-product">
                     <div class="product-img">
@@ -36,7 +36,7 @@
             @endforeach
         </div>
         <span>
-            {!!$productAlls->withQueryString()->links('pagination::bootstrap-5')!!}
+            {!!$all_products->withQueryString()->links('pagination::bootstrap-5')!!}
         </span>
     </div>
 </section>

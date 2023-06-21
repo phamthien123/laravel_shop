@@ -9,6 +9,6 @@
 <script src="{{asset('home/vendors/owl-carousel/owl.carousel.min.js')}}"></script>
 <script src="{{asset('home/js/jquery.ajaxchimp.min.js')}}"></script>
 <script src="{{asset('home/vendors/counter-up/jquery.waypoints.min.js')}}"></script>
-<script src="{{asset('home/vendors/counter-up/jquery.counterup.js')}}')}}"></script>
+<!-- <script src="{{asset('home/vendors/counter-up/jquery.counterup.js')}}')}}"></script> -->
 <script src="{{asset('home/js/mail-script.js')}}"></script>
 <script src="{{asset('home/js/theme.js')}}"></script>
