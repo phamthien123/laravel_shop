@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CommentController;
 
 //Admin
 Route::get('/adminHome', [AdminController::class, 'adminHome']);
@@ -63,9 +63,9 @@ Route::get('/stripe/{Total}', [CartController::class,'stripe']);
 Route::post('stripe/{Total}',[CartController::class,'stripePost'])->name('stripe.post');
 Route::get('cancel/{id}',[CartController::class,'cancel']);
 
-//BlogHome
-Route::get('/showBlog', [BlogController::class, 'showBlog']);
-
+//Comment
+Route::post('/add_comment', [CommentController::class, 'add_comment']);
+Route::post('/add_reply', [CommentController::class, 'add_reply']);
 
 
 Route::get('/dashboard', function () {
