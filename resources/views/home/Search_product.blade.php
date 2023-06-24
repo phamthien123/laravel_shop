@@ -32,7 +32,7 @@
                                 <h4>{{$productAll->title}}</h4>
                             </a>
                             <div class="mt-3">
-                                <span class="mr-4">{{number_format($productAll->price)}}VNĐ</span>
+                                <span class="mr-4">{{number_format((int) $productAll->price * (100 - (int) $productAll->discount_price)/100)}} VNĐ</span>
                                 <del>{{$productAll->discount_price}}%</del>
                             </div>
                         </div>

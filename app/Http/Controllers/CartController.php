@@ -28,7 +28,7 @@ class CartController extends Controller
                 $quantity = $cart->quantity;
                 $cart->quantity = $quantity + $request->quantity;
                 if ($product->discount_price != null) {
-                    $cart->price =  $cart->price *  $cart->quantity;
+                    $cart->price =  ((int) $product->price * (100 - (int) $product->discount_price) / 100) *  $cart->quantity;
                 } else {
                     $cart->price = $product->price * $cart->quantity;
                 }
@@ -45,7 +45,7 @@ class CartController extends Controller
                 $cart->user_id = $user->id;
                 $cart->Product_title = $product->title;
                 if ($product->discount_price != null) {
-                    $cart->price = (int) $product->price * (100 - (int) $product->discount_price * $request->quantity) / 100;
+                    $cart->price = ((int) $product->price * (100 - (int) $product->discount_price) / 100) * $request->quantity;
                 } else {
                     $cart->price = $product->price * $request->quantity;
                 }

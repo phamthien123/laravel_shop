@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\Cart;
 use App\Models\Comment;
-use App\Models\Order;
 use App\Models\Product;
 use App\Models\Reply;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
-use Stripe;
+
 
 
 class ProductController extends Controller

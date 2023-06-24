@@ -1,4 +1,3 @@
-
 <script src="{{asset('admin/js/core/popper.min.js')}}"></script>
 <script src="{{asset('admin/js/core/bootstrap.min.js')}}"></script>
 <script src="{{asset('admin/js/plugins/perfect-scrollbar.min.js')}}"></script>

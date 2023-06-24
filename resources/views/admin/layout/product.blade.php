@@ -79,8 +79,13 @@
                     <option value="Yes">Yes</option>
                 </select>
 
-                <label for="Quantity">Discount</label>
-                <input type="text" id="discount" name="discount" placeholder="Write Discount" required="">
+                <label for="discount_price">Discount(%)</label>
+                <select id="discount_price" name="discount_price">
+                    <option value="1">No</option>
+                    <option value="2">Yes</option>
+                </select>
+
+                <input type="text" id="discount" name="discount" placeholder="Write Discount" required="" disabled>
 
                 <label for="Image">Image</label>
                 <input type="file" id="image" name="image">
@@ -91,6 +96,16 @@
     </main>
     <!--   Core JS Files   -->
     @include('admin.js')
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        $('#discount_price').change(function() {
+            if ($(this).val() == 1) {
+                $('#discount').prop("disabled", true);
+            } else {
+                $('#discount').prop("disabled", false);
+            }
+        });
+    </script>
 </body>
 
 </html>
